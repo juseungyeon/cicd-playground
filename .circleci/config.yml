@@ -61,6 +61,3 @@ workflows:
             - test-node
       - cypress/run: # "run" job comes from "cypress" orb
           start-command: "npm run start"
-    # - deploy:
-    #     requires:
-    #       - build-node
