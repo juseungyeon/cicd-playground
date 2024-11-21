@@ -3,6 +3,7 @@
 version: 2.1
 orbs:
   node: circleci/node@5
+  cypress: cypress-io/cypress@3
 jobs:
   test-node:
     # Install node dependencies and run tests
@@ -47,10 +48,10 @@ jobs:
       # Replace this with steps to deploy to users
       - run:
           name: deploy
-          command: '#e.g. ./deploy.sh'
+          command: "#e.g. ./deploy.sh"
       - run:
           name: found github actions config
-          command: ':'
+          command: ":"
 workflows:
   build-and-test:
     jobs:
@@ -58,6 +59,8 @@ workflows:
       - build-node:
           requires:
             - test-node
+      - cypress/run: # "run" job comes from "cypress" orb
+          start-command: "npm run start"
     # - deploy:
     #     requires:
     #       - build-node
