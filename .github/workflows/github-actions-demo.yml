@@ -2,25 +2,29 @@ name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push, pull_request]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  actions: write #  to cancel/stop running workflows (styfle/cancel-workflow-action)
+  contents: read #  to fetch code (actions/checkout)
+
 jobs:
   main:
-    runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [18, 20]
-    name: main (${{ matrix.node-version }})
-
+        node: [18, 20]
+    runs-on: ubuntu-latest
     steps:
-      - name: Set up job
-        run: echo "Setting up job..."
-
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
 
       - name: ⎔ Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
 
       - name: Install dependencies
         run: npm ci
@@ -30,12 +34,3 @@ jobs:
 
       - name: ▶️ Run test
         run: npm run test
-
-      - name: Post ⎔ Setup node
-        run: echo "Post setup node..."
-
-      - name: Post ⬇️ Checkout repo
-        run: echo "Post checkout repo..."
-
-      - name: Complete job
-        run: echo "Job completed!"
