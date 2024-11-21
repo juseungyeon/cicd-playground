@@ -7,7 +7,7 @@ codecov:
     status:
       project:
         default:
-          target: auto 
+          target: auto #default
           threshold: 0%
           base: auto 
   
