@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 describe("template spec", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000");
@@ -14,10 +13,3 @@ describe("template spec", () => {
       .and("include", "https://nextjs.org/learn");
   });
 });
-=======
-describe('template spec', () => {
-  it('passes', () => {
-    cy.visit('https://example.cypress.io')
-  })
-})
->>>>>>> 0c5a53a (feat: Cypress 초기 설정 추가)
